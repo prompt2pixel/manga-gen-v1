@@ -1,8 +1,28 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Background Colors */
+  --background-dark: #121212;
+  
+  /* Primary Colors */
+  --primary-blue: #1E3A8A;
+  --primary-red: #B91C1C;
+  
+  /* Secondary Colors */
+  --secondary-gold: #D6B170;
+  --secondary-slate: #4B5563;
+  
+  /* Text Colors */
+  --text-white: #FFFFFF;
+  --text-gray: #E5E7EB;
+  
+  /* Status Colors */
+  --error-red: #DC2626;
+  --success-green: #4ADE80;
+  
+  /* Default Theme */
+  --background: var(--background-dark);
+  --foreground: var(--text-white);
 }
 
 @theme inline {
@@ -23,4 +43,69 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5;
+}
+
+/* Common Utility Classes */
+.btn-primary {
+  background-color: var(--primary-blue);
+  color: var(--text-white);
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  transition: opacity 0.2s;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn-danger {
+  background-color: var(--primary-red);
+  color: var(--text-white);
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  transition: opacity 0.2s;
+}
+
+.btn-danger:hover {
+  opacity: 0.9;
+}
+
+.text-secondary {
+  color: var(--text-gray);
+}
+
+.border-secondary {
+  border-color: var(--secondary-slate);
+}
+
+.bg-secondary {
+  background-color: var(--secondary-slate);
+}
+
+.text-gold {
+  color: var(--secondary-gold);
+}
+
+.border-gold {
+  border-color: var(--secondary-gold);
+}
+
+.bg-gold {
+  background-color: var(--secondary-gold);
+}
+
+/* Status Messages */
+.error-message {
+  color: var(--error-red);
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  background-color: rgba(220, 38, 38, 0.1);
+}
+
+.success-message {
+  color: var(--success-green);
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  background-color: rgba(74, 222, 128, 0.1);
 }
