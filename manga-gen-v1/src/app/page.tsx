@@ -5,60 +5,34 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 export default function Home() {
-  const [scrollY, setScrollY] = useState(0);
-  
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-    
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const blurAmount = Math.min(scrollY / 1000 * 10, 10);
-
   return (
     <div className="relative min-h-screen">
-      {/* Background Image with Blur Effect */}
-      <div 
-        className="fixed inset-0 w-full h-full"
-        style={{
-          backgroundImage: 'url(/images/manga-bg.jpg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundAttachment: 'fixed',
-          filter: `blur(${blurAmount}px)`,
-          transition: 'filter 0.2s ease-out',
-        }}
-      />
-      
-      {/* Content Overlay */}
+      {/* Content */}
       <div className="relative z-10">
         {/* Hero Section */}
-        <section className="min-h-screen flex items-center justify-center bg-black/50">
+        <section className="min-h-screen flex items-center justify-center">
           <div className="container mx-auto px-4 text-center">
-            <h1 className="font-bangers text-7xl text-gold mb-6 animate-fadeIn tracking-wider">
-              Welcome to MangaGen
+            <h1 className="font-barriecito text-7xl text-white mb-6 animate-fadeIn tracking-wide">
+              Welcome to Manga Meme Generator
             </h1>
-            <p className="font-comic text-2xl text-white mb-12 max-w-2xl mx-auto animate-fadeIn animation-delay-200">
+            <p className="font-barriecito text-2xl text-white/80 mb-12 max-w-2xl mx-auto animate-fadeIn animation-delay-200">
               Transform your ideas into stunning manga artwork using the power of AI
             </p>
             <div className="space-x-8 animate-fadeIn animation-delay-400">
               <Link 
                 href="/generator" 
-                className="bg-gold text-primary px-8 py-4 rounded-lg font-bangers text-2xl tracking-wide
+                className="bg-white text-black px-8 py-4 rounded-lg font-barriecito text-2xl tracking-wide
                           transform transition-all duration-200 inline-block
-                          border-4 border-black shadow-manga hover:shadow-manga-hover
+                          border-2 border-white shadow-manga hover:shadow-manga-hover
                           hover:-translate-y-1 hover:scale-105"
               >
                 Start Creating!
               </Link>
               <Link 
                 href="/gallery" 
-                className="bg-white text-black px-8 py-4 rounded-lg font-bangers text-2xl tracking-wide
+                className="bg-transparent text-white px-8 py-4 rounded-lg font-barriecito text-2xl tracking-wide
                           transform transition-all duration-200 inline-block
-                          border-4 border-black shadow-manga hover:shadow-manga-hover
+                          border-2 border-white shadow-manga hover:shadow-manga-hover
                           hover:-translate-y-1 hover:scale-105"
               >
                 Explore Gallery!
@@ -68,9 +42,9 @@ export default function Home() {
         </section>
 
         {/* Features Section */}
-        <section className="py-20 bg-primary/90  bg-black/50">
+        <section className="py-20 bg-black/50">
           <div className="container mx-auto px-4">
-            <h2 className="font-bangers text-5xl text-gold mb-12 text-center tracking-wide">What You Can Create!</h2>
+            <h2 className="font-barriecito text-5xl text-white mb-12 text-center tracking-wide">What You Can Create!</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <FeatureCard 
                 title="Character Design"
@@ -89,9 +63,9 @@ export default function Home() {
         </section>
 
         {/* Use Cases Section */}
-        <section className="py-20 bg-secondary/90 bg-black/50">
+        <section className="py-20 bg-black/30">
           <div className="container mx-auto px-4">
-            <h2 className="font-bangers text-5xl text-gold mb-12 text-center tracking-wide">Who Can Use It?</h2>
+            <h2 className="font-barriecito text-5xl text-white mb-12 text-center tracking-wide">Who Can Use It?</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
               <UseCaseCard 
                 title="For Artists"
@@ -141,12 +115,12 @@ function FeatureCard({ title, description }: { title: string; description: strin
   return (
     <div 
       ref={cardRef}
-      className={`bg-white p-6 rounded-lg transform transition-all duration-700
-                  border-4 border-black shadow-manga
+      className={`bg-white/10 backdrop-blur-sm p-6 rounded-lg transform transition-all duration-700
+                  border-2 border-white/30 
                   ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
     >
-      <h3 className="font-bangers text-3xl text-black mb-4 tracking-wide">{title}</h3>
-      <p className="font-comic text-black text-lg">{description}</p>
+      <h3 className="font-barriecito text-3xl text-white mb-4 tracking-wide">{title}</h3>
+      <p className="font-barriecito text-white/80 text-lg">{description}</p>
     </div>
   );
 }
@@ -175,12 +149,12 @@ function UseCaseCard({ title, description }: { title: string; description: strin
   return (
     <div 
       ref={cardRef}
-      className={`bg-white p-8 rounded-lg transform transition-all duration-700
-                  border-4 border-black shadow-manga hover:shadow-manga-hover
+      className={`bg-white/5 backdrop-blur-sm p-8 rounded-lg transform transition-all duration-700
+                  border-2 border-white/20 hover:border-white/40
                   ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20'}`}
     >
-      <h3 className="font-bangers text-3xl text-black mb-4 tracking-wide">{title}</h3>
-      <p className="font-comic text-black text-lg">{description}</p>
+      <h3 className="font-barriecito text-3xl text-white mb-4 tracking-wide">{title}</h3>
+      <p className="font-barriecito text-white/80 text-lg">{description}</p>
     </div>
   );
 }

@@ -10,15 +10,20 @@ module.exports = {
       colors: {
         primary: '#1a1a1a',
         secondary: '#2a2a2a',
-        gold: '#ffd700',
+        manga: {
+          light: '#FFFFFF',
+          gray: '#E5E5E5',
+          dark: '#2D2D2D',
+          accent: '#4A4A4A',
+        }
       },
       fontFamily: {
-        bangers: ['var(--font-bangers)'],
-        comic: ['var(--font-comic)'],
+        barriecito: ['var(--font-barriecito)', 'cursive'],
       },
       animation: {
         fadeIn: 'fadeIn 1s ease-in forwards',
         'text-shimmer': 'text-shimmer 2s ease-in-out infinite',
+        pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       },
       keyframes: {
         fadeIn: {
@@ -35,15 +40,32 @@ module.exports = {
             'background-position': 'right center',
           },
         },
+        pulse: {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '.5' },
+        },
       },
       transitionProperty: {
         'filter': 'filter',
       },
       boxShadow: {
-        'manga': '4px 4px 0 #000000',
-        'manga-hover': '6px 6px 0 #000000',
+        'manga': '4px 4px 0 #2D2D2D',
+        'manga-hover': '6px 6px 0 #2D2D2D',
+      },
+      backdropBlur: {
+        xs: '2px',
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function({ addUtilities }) {
+      const newUtilities = {
+        '.writing-vertical-rl': {
+          'writing-mode': 'vertical-rl',
+          'text-orientation': 'mixed',
+        },
+      };
+      addUtilities(newUtilities);
+    },
+  ],
 } 

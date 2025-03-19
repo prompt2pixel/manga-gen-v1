@@ -1,35 +1,59 @@
 "use client";
 
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Navigation() {
   const pathname = usePathname();
 
-  const isActive = (path: string) => {
-    return pathname === path 
-      ? 'text-gold font-bangers text-2xl tracking-wide transform scale-110 transition-all duration-200' 
-      : 'text-white hover:text-gold font-bangers text-xl tracking-wide transform hover:scale-110 transition-all duration-200';
-  };
+  const navItems = [
+    { href: '/gallery', label: 'Gallery' },
+    { href: '/generator', label: 'Generator' },
+    { href: '/market', label: 'Market' },
+  ];
 
   return (
-    <nav className="bg-secondary p-4 border-b-4 border-black">
-      <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <Link href="/" className="text-3xl font-bangers tracking-wide text-gold transform hover:scale-110 transition-all duration-200">
-          MangaGen
+    <>
+      {/* Logo Section */}
+      <div className="fixed top-8 left-8 z-50">
+        <Link 
+          href="/" 
+          className="p-2 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:rotate-2 transform-gpu"
+        >
+          <Image
+            src="/logo.png"
+            alt="MangaGen Logo"
+            width={120}
+            height={40}
+            priority
+            className="filter drop-shadow-lg hover:drop-shadow-xl transition-all duration-300"
+          />
         </Link>
-        <div className="space-x-8">
-          <Link href="/gallery" className={isActive('/gallery')}>
-            Gallery
-          </Link>
-          <Link href="/generator" className={isActive('/generator')}>
-            Generator
-          </Link>
-          <Link href="/market" className={isActive('/market')}>
-            Market
-          </Link>
-        </div>
       </div>
-    </nav>
+
+      {/* Vertical Navigation */}
+      <nav className="fixed right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center gap-12">
+        <div className="h-[200px] w-[2px] bg-white opacity-50" />
+        {navItems.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className={`group relative writing-vertical-rl transform transition-transform duration-300
+                      font-barriecito text-xl tracking-wider ${
+                        pathname === item.href 
+                          ? 'text-white scale-110' 
+                          : 'text-white/70 hover:text-white hover:scale-105'
+                      }`}
+          >
+            {item.label}
+            {pathname === item.href && (
+              <span className="absolute -left-3 top-1/2 -translate-y-1/2 w-1 h-8 bg-white rounded-full" />
+            )}
+          </Link>
+        ))}
+        <div className="h-[200px] w-[2px] bg-white opacity-50" />
+      </nav>
+    </>
   );
 } 

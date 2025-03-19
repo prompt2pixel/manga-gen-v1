@@ -1,34 +1,63 @@
+"use client";
+
 import './globals.css';
 import Navigation from './components/Navigation';
-import { Bangers, Comic_Neue } from 'next/font/google';
+import { Barriecito } from 'next/font/google';
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
-const bangers = Bangers({
+const barriecito = Barriecito({
   weight: '400',
   subsets: ['latin'],
-  variable: '--font-bangers',
+  variable: '--font-barriecito',
 });
-
-const comicNeue = Comic_Neue({
-  weight: ['300', '400', '700'],
-  subsets: ['latin'],
-  variable: '--font-comic',
-});
-
-export const metadata = {
-  title: 'MangaGen - AI Manga Generator',
-  description: 'Create stunning manga artwork using AI',
-};
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  // For client-side scrolling effects
+  const [scrollY, setScrollY] = useState(0);
+  
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const blurAmount = Math.min(scrollY / 1000 * 10, 10);
+
   return (
     <html lang="en">
-      <body className={`${bangers.variable} ${comicNeue.variable} font-comic`}>
+      <body className={`${barriecito.variable} font-barriecito relative min-h-screen`}>
+        {/* Persistent Background Image */}
+        <div className="fixed inset-0 w-full h-full z-0 bg-amber-50">
+          <Image 
+            src="/mang.jpg"
+            alt="Manga background"
+            fill
+            style={{
+              objectFit: 'cover',
+              opacity: 0.1,
+              filter: `blur(${blurAmount}px)`,
+            }}
+          />
+        </div>
+        
+        {/* Persistent Dark Overlay */}
+        <div className="fixed inset-0 w-full h-full z-0 bg-black opacity-80" />
+        
+        {/* Navigation - will appear on every page */}
         <Navigation />
-        {children}
+        
+        {/* Page Content */}
+        <div className="relative z-10">
+          {children}
+        </div>
       </body>
     </html>
   );
